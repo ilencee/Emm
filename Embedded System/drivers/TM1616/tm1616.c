@@ -5,6 +5,8 @@
 
 
 
+
+
 /* 显存地址表 */
 static const uint8_t digit_addr[4] = {
     TM1616_ADDR_DIGIT1,
@@ -247,4 +249,38 @@ void TM1616_DisplayRaw(uint8_t pos, uint8_t seg_data)
     if (pos > 3)
         return;
     TM1616_WriteData(digit_addr[pos], seg_data);
+}
+
+/**
+ * @brief  同时显示四位指定字符
+ * @param  c1: 第1位字符（最左边，对应数码管位置0）
+ * @param  c2: 第2位字符（对应数码管位置1）
+ * @param  c3: 第3位字符（对应数码管位置2）
+ * @param  c4: 第4位字符（最右边，对应数码管位置3）
+ * @note   支持字符：0-9, A-F, a-f, '-', ' ', '_'
+ *         不支持的字符将显示为空白
+ * @example TM1616_DisplayFourChars('9', 'A', 'B', '3');  // 显示 "9AB3"
+ */
+void TM1616_DisplayFourChars(char c1, char c2, char c3, char c4)
+{
+    uint8_t seg_data[4];
+    
+    /* 将字符转换为段码 */
+    seg_data[0] = (c1 >= 0 && c1 < 128) ? tm1616_ascii_table[(uint8_t)c1] : 0x00;
+    seg_data[1] = (c2 >= 0 && c2 < 128) ? tm1616_ascii_table[(uint8_t)c2] : 0x00;
+    seg_data[2] = (c3 >= 0 && c3 < 128) ? tm1616_ascii_table[(uint8_t)c3] : 0x00;
+    seg_data[3] = (c4 >= 0 && c4 < 128) ? tm1616_ascii_table[(uint8_t)c4] : 0x00;
+    
+    /* 使用固定地址模式连续写入四位数据 */
+    TM1616_STB_LOW();
+    TM1616_Delay_us(1);
+    
+    TM1616_WriteByte(TM1616_ADDR_DIGIT1);  // 起始地址
+    TM1616_WriteByte(seg_data[0]);         // 第1位
+    TM1616_WriteByte(seg_data[1]);         // 第2位
+    TM1616_WriteByte(seg_data[2]);         // 第3位
+    TM1616_WriteByte(seg_data[3]);         // 第4位
+    
+    TM1616_STB_HIGH();
+    TM1616_Delay_us(1);
 }

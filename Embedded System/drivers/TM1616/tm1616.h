@@ -61,6 +61,7 @@ void TM1616_SetBrightness(uint8_t brightness);
 void TM1616_DisplayOn(void);
 void TM1616_DisplayOff(void);
 void TM1616_DisplayRaw(uint8_t pos, uint8_t seg_data);
+void TM1616_DisplayFourChars(char c1, char c2, char c3, char c4);
 
 
 

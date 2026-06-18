@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Embedded System/drivers/**"
+                "${workspaceFolder}/Embedded System/drivers/**",
+                "${workspaceFolder}/Embedded System/drivers/Segment_Scan"
             ],
             "defines": [
                 "_DEBUG",

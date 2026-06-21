@@ -25,6 +25,9 @@ sbit TM1616_STB_PIN = P1^2;  // STB接P1.2
 #define TM1616_STB_HIGH()   (TM1616_STB_PIN = 1)
 #define TM1616_STB_LOW()    (TM1616_STB_PIN = 0)
 
+/* ==================== 8位单片机专用函数声明 ==================== */
+void TM1616_Port_Init(void);
+
 /* 
  * 如果使用AVR单片机，可以这样定义:
  * #define TM1616_CLK_PORT   PORTB

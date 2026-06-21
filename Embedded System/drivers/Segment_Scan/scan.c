@@ -144,6 +144,18 @@ static void delay_us(uint16_t us)
 }
 
 // ==================== 公共接口函数 ====================
+/**
+ * @brief 关闭所有位（消隐，防止鬼影）
+ */
+static inline void Seg7_Blank(void)
+{
+    // 先关位选，再改段码，消除切换时的残影
+    select_com(0xFF);          // 关闭所有COM口
+    set_segment_output(0x00);  // 关闭所有段选
+}
+
+
+
 
 /**
  * @brief 初始化数码管扫描驱动

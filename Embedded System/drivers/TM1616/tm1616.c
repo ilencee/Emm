@@ -4,9 +4,6 @@
 //#include "delay.h"  // 需要微秒级延时函数
 
 
-
-
-
 /* 显存地址表 */
 static const uint8_t digit_addr[4] = {
     TM1616_ADDR_DIGIT1,
@@ -30,22 +27,8 @@ static void TM1616_Delay_us(uint32_t us)
  */
 void TM1616_Init(void)
 {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-    /* 使能 GPIO 时钟 */
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-
-    /* 配置引脚为推挽输出 */
-    GPIO_InitStruct.Pin = TM1616_CLK_PIN | TM1616_DIN_PIN | TM1616_STB_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /* 初始状态：全部高电平 */
-    TM1616_CLK_HIGH();
-    TM1616_DIN_HIGH();
-    TM1616_STB_HIGH();
+    /* 调用平台相关的GPIO初始化 */
+    TM1616_Port_Init();
 
     /* 发送初始化命令序列 */
     TM1616_WriteCommand(TM1616_MODE_7SEG_4GRID); // 设置显示模式

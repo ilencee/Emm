@@ -28,4 +28,7 @@
 #define TM1616_STB_HIGH()   HAL_GPIO_WritePin(TM1616_STB_PORT, TM1616_STB_PIN, GPIO_PIN_SET)
 #define TM1616_STB_LOW()    HAL_GPIO_WritePin(TM1616_STB_PORT, TM1616_STB_PIN, GPIO_PIN_RESET)
 
+/* ==================== STM32专用函数声明 ==================== */
+void TM1616_Port_Init(void);
+
 #endif /* TM1616_PORT_STM32_H */

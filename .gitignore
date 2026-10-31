@@ -1,0 +1,11 @@
+# 编译产物
+*.o
+*.obj
+*.exe
+__pycache__/
+*.py[cod]
+
+# 系统
+Thumbs.db
+Desktop.ini
+.DS_Store
